@@ -1,7 +1,8 @@
 /*===============================================================================*/
 /*********************************************************************************/
 /**
- * @fileOverview Contains readable names of fields for error messages
+ * @fileOverview Has utility functions that are re-useable across multiple files
+ * of specs.
  * @author T V Deekshith, venkatadeekshith@elear.solutions
  * @copyright Copyright (c) 2021 Elear Solutions Tech Private Limited. All rights
  * reserved.
@@ -20,6 +21,6 @@
 /*********************************************************************************/
 /*===============================================================================*/
 
-export const ReadableNames = {
-  USER: "3rd party user"
-};
+import { Environment } from '../../config/environment';
+
+export const baseUrl = 'http://localhost:' + Environment.PORT + '/v1.0/coco-api';

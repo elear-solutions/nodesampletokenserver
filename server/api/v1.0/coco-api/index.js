@@ -22,5 +22,10 @@
 
 import express from 'express';
 
-// internal network router
+import { fetchUserToken } from './coco-api-controller';
+
+// network router for API's based on coco
 export const cocoAPIRouter = express.Router();
+
+// Fetch external user access token
+cocoAPIRouter.post('/fetch-user-token', fetchUserToken);

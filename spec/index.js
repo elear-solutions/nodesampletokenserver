@@ -1,7 +1,7 @@
 /*===============================================================================*/
 /*********************************************************************************/
 /**
- * @fileOverview Contains readable names of fields for error messages
+ * @fileOverview Loads server while running tests.
  * @author T V Deekshith, venkatadeekshith@elear.solutions
  * @copyright Copyright (c) 2021 Elear Solutions Tech Private Limited. All rights
  * reserved.
@@ -20,6 +20,12 @@
 /*********************************************************************************/
 /*===============================================================================*/
 
-export const ReadableNames = {
-  USER: "3rd party user"
-};
+import '../server';
+
+describe('Initializing server', () => {
+  it('Waiting for server to be up and running', (done) => {
+    setTimeout(() => {
+      done();
+    }, 5000);
+  });
+});

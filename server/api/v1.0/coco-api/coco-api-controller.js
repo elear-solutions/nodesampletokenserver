@@ -19,3 +19,45 @@
   */
 /*********************************************************************************/
 /*===============================================================================*/
+
+import { logger } from '../../../config/common-config';
+import { COCOService } from '../../../service/coco-service';
+import { CustomApiError, ErrorCodes } from '../../../utils/custom-api-errors';
+import { ReadableNames } from '../../../utils/readable-names';
+
+/**
+ * Executes to provide user access token for non coco users
+ * @param {String} userId - uniqueIdentification of user
+ */
+
+export const fetchUserToken = (req, res) => {
+  const { userId } = req.body;
+
+  // Check if userId is sent
+  if (userId === undefined) {
+    logger.error('fetchUserToken: usser id not sent');
+    const error = new CustomApiError(ErrorCodes.MISSING_PARAM, 'userId',
+      ReadableNames.USER);
+    return res.status(error.getHttpStatus()).send(error.getErrorInfo());
+  }
+
+  // Check if userId is a string
+  if (typeof(userId) !== 'string') {
+    logger.error('fetchUserToken: userId is not valid.' + ' userId ' + userId);
+    const error = new CustomApiError(ErrorCodes.INVALID_INPUT, 'userId',
+      ReadableNames.USER);
+    return res.status(error.getHttpStatus()).send(error.getErrorInfo());
+  }
+
+  return COCOService.getUserAccessTokenById(userId)
+    .then((userToken) => {
+      logger.info('fetchUserToken: fetched coco access token for user' + userId);
+      return res.send(userToken);
+
+    }).catch((err) => {
+      logger.error('fetchUserToken: error occurred while fetching user access token',
+        err);
+      const error =  new CustomApiError(ErrorCodes.INTERNAL_SERVER_ERROR);
+      return res.status(error.getHttpStatus()).send(error.getErrorInfo());
+    });
+};
