@@ -25,10 +25,9 @@ import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import express from 'express';
 import http from 'http';
-import lusca from 'lusca';
 import shrinkRay from 'shrink-ray-current';
 import { Environment } from './config/environment';
-import { HttpStatus, logger, security } from './config/common-config';
+import { logger } from './config/common-config';
 import { COCOConfig } from './config/coco';
 
 // Get our API routes
@@ -46,9 +45,6 @@ app.use(cookieParser());
 // compression middleware
 app.use(shrinkRay());
 
-// webapp security middleware
-app.use(lusca(security.Lusca));
-
 // Set our api routes
 router(app);
 
@@ -56,10 +52,6 @@ router(app);
 if (process.env.NODE_ENV === 'dev') {
   app.use(errorHandler());
 }
-// Catch all other routes and return the NOT_FOUND
-app.get('*', (req, res) => {
-  res.status(HttpStatus.NOT_FOUND).send();
-});
 
 /**
  * Create HTTP server.

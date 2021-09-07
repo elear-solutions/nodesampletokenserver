@@ -23,11 +23,11 @@
 // service name to be used in logs
 export const SERVICE_NAME = "SAMPLETOKENSERVER";
 
-// COCO confedential client auth grantType
-export const COCO_SERVICE_APPLICATION_GRANT_TYPE = "client_credentials";
-
-// COCO refresh token auth grantType
-export const COCO_REFRESH_TOKEN_GRANT_TYPE = "refresh_token";
+// COCO oauth grant types
+export const OAuthGrantTypes = {
+  CLIENT_CREDENTIALS: "client_credentials",
+  REFRESH_TOKEN: "refresh_token"
+};
 
 // COCO auth token time out buffer
 export const AUTH_TOKEN_TIMEOUT_BUFFER = 2000;

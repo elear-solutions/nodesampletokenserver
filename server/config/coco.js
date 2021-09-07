@@ -24,8 +24,7 @@ import request from "request";
 import { logger } from '../config/common-config';
 import { CustomApiError, ErrorCodes, HttpStatus } from '../utils/custom-api-errors';
 import { Environment } from './environment';
-import { AUTH_TOKEN_TIMEOUT_BUFFER, COCO_SERVICE_APPLICATION_GRANT_TYPE,
-  COCO_REFRESH_TOKEN_GRANT_TYPE } from '../utils/constants';
+import { AUTH_TOKEN_TIMEOUT_BUFFER, OAuthGrantTypes } from '../utils/constants';
 
 // COCO auth tokens
 let COCOTokenInfo = {
@@ -43,7 +42,7 @@ const initialize = () => {
       method: 'post',
       url: `${Environment.COCO_API_URL}/oauth/token`,
       body: {
-        grant_type: COCO_SERVICE_APPLICATION_GRANT_TYPE,
+        grant_type: OAuthGrantTypes.CLIENT_CREDENTIALS,
         client_id: Environment.COCO_CLIENT_ID,
         client_secret: Environment.COCO_CLIENT_SECRET
       },
@@ -78,7 +77,7 @@ const refreshTokens = () => {
       method: 'post',
       url: `${Environment.COCO_API_URL}/oauth/token`,
       body: {
-        grant_type: COCO_REFRESH_TOKEN_GRANT_TYPE,
+        grant_type: OAuthGrantTypes.REFRESH_TOKEN,
         client_id: Environment.COCO_CLIENT_ID,
         client_secret: Environment.COCO_CLIENT_SECRET,
         refresh_token: COCOTokenInfo.refreshToken

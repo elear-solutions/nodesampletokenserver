@@ -22,5 +22,5 @@
 
 import express from 'express';
 
-// internal network router
+// router for coco based API's
 export const cocoAPIRouter = express.Router();
