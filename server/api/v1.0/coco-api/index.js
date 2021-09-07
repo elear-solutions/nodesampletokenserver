@@ -21,10 +21,9 @@
 /*===============================================================================*/
 
 import express from 'express';
-
 import { fetchUserToken } from './coco-api-controller';
 
-// network router for API's based on coco
+// router for coco based API's
 export const cocoAPIRouter = express.Router();
 
 // Fetch external user access token
