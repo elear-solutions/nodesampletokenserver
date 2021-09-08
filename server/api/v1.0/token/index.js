@@ -21,10 +21,10 @@
 /*===============================================================================*/
 
 import express from 'express';
-import { fetchUserToken } from './coco-api-controller';
+import { fetchUserToken } from './token-controller';
 
-// router for coco based API's
-export const cocoAPIRouter = express.Router();
+// router for accesstoken based API's
+export const tokenRouter = express.Router();
 
 // Fetch external user access token
-cocoAPIRouter.post('/fetch-user-token', fetchUserToken);
+tokenRouter.post('/fetch-user-token', fetchUserToken);

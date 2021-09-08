@@ -21,10 +21,9 @@
 /*===============================================================================*/
 
 import request from "request";
-import { logger } from '../config/common-config';
-import { CustomApiError, ErrorCodes, HttpStatus } from '../utils/custom-api-errors';
 import { Environment } from './environment';
-import { AUTH_TOKEN_TIMEOUT_BUFFER, OAuthGrantTypes } from '../utils/constants';
+import { AUTH_TOKEN_TIMEOUT_BUFFER, OAuthGrantTypes, HttpStatus
+} from '../utils/constants';
 
 // COCO auth tokens
 let COCOTokenInfo = {
@@ -49,9 +48,9 @@ const initialize = () => {
       json: true,
     }, (err, response, body) => {
       if (err || response.statusCode !== HttpStatus.OK) {
-        logger.error('initialize: Error occurred while'
+        console.log('initialize: Error occurred while'
           + ' fetching access token', err);
-        return reject([err, response.statusCode, body]);
+        return reject(err);
       }
 
       // Store access tokens of coco
@@ -61,7 +60,7 @@ const initialize = () => {
       // Store expiry time in millsec
       COCOTokenInfo.expiryTime = new Date().getTime() + body.expires_in * 1000;
 
-      logger.info('initialize: access token fetched and stored'
+      console.log('initialize: access token fetched and stored'
         + JSON.stringify(COCOTokenInfo));
       return resolve();
     });
@@ -85,14 +84,14 @@ const refreshTokens = () => {
       json: true
     }, (err, response, body) => {
       if (err) {
-        logger.error('refreshTokens: Error occurred while'
+        console.log('refreshTokens: Error occurred while'
           + ' fetching access token', err);
-        return reject(new CustomApiError(ErrorCodes.INTERNAL_SERVER_ERROR));
+        return reject(HttpStatus.INTERNAL_SERVER_ERROR);
       }
 
       // Fetch new access token using grant type when refresh token is invalid
       if (response.statusCode !== HttpStatus.OK) {
-        logger.info('refreshTokens: refresh token is invalid fetching new');
+        console.log('refreshTokens: refresh token is invalid fetching new');
         return initialize();
       }
 
@@ -103,7 +102,7 @@ const refreshTokens = () => {
       // Store expiry time
       COCOTokenInfo.expiryTime = new Date().getTime() + body.expires_in * 1000;
 
-      logger.info('refreshTokens: access token fetched and stored');
+      console.log('refreshTokens: access token fetched and stored');
       return resolve();
     });
   });
@@ -129,8 +128,8 @@ const getCOCOAcessToken = () => {
     }).then(() => {
       return Promise.resolve(COCOTokenInfo.accessToken);
     }).catch((error) => {
-      logger.info('getCOCOAcessToken: error occured while fetching accesstoken', error);
-      return Promise.reject(new CustomApiError(ErrorCodes.INTERNAL_SERVER_ERROR));
+      console.log('getCOCOAcessToken: error occured while fetching accesstoken', error);
+      return Promise.reject(HttpStatus.INTERNAL_SERVER_ERROR);
     });
 };
 

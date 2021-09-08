@@ -27,7 +27,6 @@ import express from 'express';
 import http from 'http';
 import shrinkRay from 'shrink-ray-current';
 import { Environment } from './config/environment';
-import { logger } from './config/common-config';
 import { COCOConfig } from './config/coco';
 
 // Get our API routes
@@ -65,10 +64,10 @@ COCOConfig.initialize()
      * Listen on provided port, on all network interfaces.
      */
     server.listen(Environment.PORT, () => {
-      logger.info(`SampleTokenServer is up and running on`
+      console.log(`SampleTokenServer is up and running on`
         + ` localhost:${Environment.PORT}`);
     });
   }).catch((error) => {
-    logger.error('Error occured while initializing the server', error);
+    console.log('Error occured while initializing the server', error);
     process.exit(0);
   });

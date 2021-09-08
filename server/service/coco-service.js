@@ -22,9 +22,8 @@
 
 import request from "request";
 import { Environment } from "../config/environment";
-import { logger } from '../config/common-config';
 import { COCOConfig } from '../config/coco';
-import { CustomApiError, ErrorCodes, HttpStatus } from '../utils/custom-api-errors';
+import { HttpStatus } from '../utils/constants';
 
 /**
  * Get user access token by Id
@@ -34,8 +33,8 @@ const getUserAccessTokenById = (userId) => {
   return new Promise((resolve, reject) => {
     request({
       method: 'post',
-      url: `${Environment.COCO_API_URL}/user-manager/users/basic-infos`,
-      body: { userIds: [userId] },
+      url: `${Environment.COCO_API_URL}/oauth/external-user-token`,
+      body: { userId },
       auth: {
         bearer: COCOConfig.getCOCOAcessToken()
       },
@@ -43,13 +42,13 @@ const getUserAccessTokenById = (userId) => {
     }, (err, response) => {
       if (err || !(response.statusCode === HttpStatus.OK ||
          response.statusCode === HttpStatus.UNAUTHORIZED)) {
-        logger.error('getUserAccessTokenById: Error occurred in coco' +
+        console.log('getUserAccessTokenById: Error occurred in coco' +
            ' server while retrieving user access token ', err);
-        return reject(new CustomApiError(ErrorCodes.INTERNAL_SERVER_ERROR));
+        return reject(HttpStatus.INTERNAL_SERVER_ERROR);
       }
 
       if (response.statusCode === HttpStatus.UNAUTHORIZED) {
-        logger.error('getUserAccessTokenById: Access token expired fetching'
+        console.log('getUserAccessTokenById: Access token expired fetching'
           + 'new access token');
         return resolve(getUserAccessTokenById(userId));
       }

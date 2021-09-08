@@ -29,5 +29,14 @@ export const OAuthGrantTypes = {
   REFRESH_TOKEN: "refresh_token"
 };
 
+export const HttpStatus = {
+  OK: 200,
+  INVALID_INPUT: 400,
+  INTERNAL_SERVER_ERROR: 500,
+  MISSING_PARAM: 400,
+  NOT_FOUND: 404,
+  UNAUTHORIZED: 401,
+};
+
 // COCO auth token time out buffer
 export const AUTH_TOKEN_TIMEOUT_BUFFER = 2000;

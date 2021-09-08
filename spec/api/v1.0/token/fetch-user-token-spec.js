@@ -55,8 +55,6 @@ describe('post /v1.0/coco-api/fetch-user-token', () => {
     return reqfetchUserAccessToken({})
       .then((res)  => {
         expect(res.statusCode).toBe(400);
-        expect(res.body.error.code).toBe(40001);
-        expect(res.body.error.fieldName).toBe('userId');
         done();
       }).catch(done.fail);
   });
@@ -65,15 +63,13 @@ describe('post /v1.0/coco-api/fetch-user-token', () => {
     return reqfetchUserAccessToken({ userId: 2 })
       .then((res)  => {
         expect(res.statusCode).toBe(400);
-        expect(res.body.error.code).toBe(40002);
-        expect(res.body.error.fieldName).toBe('userId');
         done();
       }).catch(done.fail);
   });
 
   it('Positive Scenario: fetched user access token', (done) => {
     nock(Environment.COCO_API_URL)
-      .post('/user-manager/users/basic-infos')
+      .post('/oauth/external-user-token')
       .reply(200, { firstName: "venkata", lastName: "Deekshith" });
     return reqfetchUserAccessToken({ userId: "5e71e87bf6a95e0016e7901e" })
       .then((res)  => {
@@ -85,10 +81,10 @@ describe('post /v1.0/coco-api/fetch-user-token', () => {
 
   it('Positive Scenario: fetched user access token, when coco token expired', (done) => {
     nock(Environment.COCO_API_URL)
-      .post('/user-manager/users/basic-infos')
+      .post('/oauth/external-user-token')
       .reply(401);
     nock(Environment.COCO_API_URL)
-      .post('/user-manager/users/basic-infos')
+      .post('/oauth/external-user-token')
       .reply(200, { firstName: "venkata", lastName: "Deekshith" });
     return reqfetchUserAccessToken({ userId: "5e71e87bf6a95e0016e7901e" })
       .then((res)  => {
@@ -100,7 +96,7 @@ describe('post /v1.0/coco-api/fetch-user-token', () => {
 
   it('Negitive Scenario: fetch user token error when coco api throwing error', (done) => {
     nock(Environment.COCO_API_URL)
-      .post('/user-manager/users/basic-infos')
+      .post('/oauth/external-user-token')
       .reply(400);
     return reqfetchUserAccessToken({ userId: "5e71e87bf6a95e0016e7901e" })
       .then((res)  => {

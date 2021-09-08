@@ -38,7 +38,7 @@
         "ignoreTrailingComments": true
       }
     ],
-    "no-console": "error",
+    "no-console": "off",
     "no-multiple-empty-lines": [
       "warn",
       {
