@@ -1,8 +1,7 @@
 /*===============================================================================*/
 /*********************************************************************************/
 /**
- * @fileOverview Exports the common code functionalities after performing
- * required initialisations with the common code library
+ * @fileOverview Loads server while running tests.
  * @author T V Deekshith, venkatadeekshith@elear.solutions
  * @copyright Copyright (c) 2021 Elear Solutions Tech Private Limited. All rights
  * reserved.
@@ -21,26 +20,12 @@
 /*********************************************************************************/
 /*===============================================================================*/
 
-import common from 'elear-node-libs/coco-store-common';
-import { SERVICE_NAME } from '../utils/constants';
+import '../server';
 
-// Initialise the common code with the service name and store the handler
-const cocoStoreCommon = common(SERVICE_NAME).getInstance();
-
-// Initialise the custom api error with the error codes specific to this microservice
-export const error = cocoStoreCommon.error();
-
-// Export CustomApiError, HttpStatus and ErrorCodes
-export const CustomApiError = error.CustomApiError;
-export const HttpStatus = error.HttpStatus;
-export const ErrorCodes = error.ErrorCodes;
-
-// Export the security configurations
-export const security = cocoStoreCommon.security;
-
-// Export logger
-export const logger = cocoStoreCommon.logger;
-
-// Export the utility functionalities
-export const commonUtils = cocoStoreCommon.utils;
-
+describe('Initializing server', () => {
+  it('Waiting for server to be up and running', (done) => {
+    setTimeout(() => {
+      done();
+    }, 5000);
+  });
+});

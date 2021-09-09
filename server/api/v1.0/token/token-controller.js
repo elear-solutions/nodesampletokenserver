@@ -1,7 +1,7 @@
 /*===============================================================================*/
 /*********************************************************************************/
 /**
-  * @fileOverview defines the API routes required for the token server
+  * @fileOverview routes - function definitions for various routes of token server
   * @author T V Deekshith, venkatadeekshith@elear.solutions
   * @copyright Copyright (c) 2021 Elear Solutions Tech Private Limited. All rights
   * reserved.
@@ -20,7 +20,37 @@
 /*********************************************************************************/
 /*===============================================================================*/
 
-import express from 'express';
+import { COCOService } from '../../../service/coco-service';
+import { HttpStatus } from '../../../utils/constants';
 
-// router for coco based API's
-export const cocoAPIRouter = express.Router();
+/**
+ * Executes to provide user access token for non coco users
+ * @param {String} userId - uniqueIdentification of user
+ */
+
+export const fetchUserToken = (req, res) => {
+  const { userId } = req.body;
+
+  // Check if userId is sent
+  if (userId === undefined) {
+    console.log('fetchUserToken: user id not sent');
+    return res.status(HttpStatus.MISSING_PARAM).send();
+  }
+
+  // Check if userId is a string
+  if (typeof(userId) !== 'string') {
+    console.log('fetchUserToken: userId is not valid.' + ' userId ' + userId);
+    return res.status(HttpStatus.INVALID_INPUT).send();
+  }
+
+  return COCOService.getUserAccessTokenById(userId)
+    .then((userToken) => {
+      console.log('fetchUserToken: fetched coco access token for user' + userId);
+      return res.send(userToken);
+
+    }).catch((err) => {
+      console.log('fetchUserToken: error occurred while fetching user access token',
+        err);
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send();
+    });
+};

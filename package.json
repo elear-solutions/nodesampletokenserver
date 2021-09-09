@@ -7,7 +7,7 @@
   "scripts": {
     "build": "gulp build",
     "dev": "gulp",
-    "start": "node dist/server",
+    "start": "node --trace-warnings dist/server",
     "test": "gulp test"
   },
   "repository": {
@@ -22,7 +22,6 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.4",
-    "elear-node-libs": "git+https://68add7737f50e20e177b611b288e0eb78bab3654:x-oauth-basic@github.com/ashishbajaj99/elear-node-libs.git#develop",
     "errorhandler": "^1.5.0",
     "express": "^4.16.4",
     "lusca": "^1.6.1",

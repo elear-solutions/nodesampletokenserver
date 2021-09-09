@@ -1,8 +1,8 @@
 /*===============================================================================*/
 /*********************************************************************************/
 /**
- * @fileOverview Provides basic error framework for backend services with basic
- *               error codes, which can be extended to define custom error codes.
+ * @fileOverview Has utility functions that are re-useable across multiple files
+ * of specs.
  * @author T V Deekshith, venkatadeekshith@elear.solutions
  * @copyright Copyright (c) 2021 Elear Solutions Tech Private Limited. All rights
  * reserved.
@@ -21,15 +21,6 @@
 /*********************************************************************************/
 /*===============================================================================*/
 
-import { error } from '../config/common-config';
+import { Environment } from '../../config/environment';
 
-// Export CustomApiError and HttpStatus
-export const CustomApiError = error.CustomApiError;
-export const HttpStatus = error.HttpStatus;
-
-/** List of Custom API ErrorCodes */
-export const CustomErrorCodes  = {
-};
-
-// Export Error Codes
-export const ErrorCodes = error.ErrorCodes(CustomErrorCodes);
+export const baseUrl = 'http://localhost:' + Environment.PORT + '/v1.0/token';

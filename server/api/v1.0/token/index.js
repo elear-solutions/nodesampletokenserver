@@ -1,7 +1,7 @@
 /*===============================================================================*/
 /*********************************************************************************/
 /**
-  * @fileOverview routes - function definitions for various routes of token server
+  * @fileOverview defines the API routes required for the token server
   * @author T V Deekshith, venkatadeekshith@elear.solutions
   * @copyright Copyright (c) 2021 Elear Solutions Tech Private Limited. All rights
   * reserved.
@@ -19,3 +19,12 @@
   */
 /*********************************************************************************/
 /*===============================================================================*/
+
+import express from 'express';
+import { fetchUserToken } from './token-controller';
+
+// router for accesstoken based API's
+export const tokenRouter = express.Router();
+
+// Fetch external user access token
+tokenRouter.post('/fetch-user-token', fetchUserToken);
