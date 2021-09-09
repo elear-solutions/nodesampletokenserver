@@ -20,10 +20,8 @@
 /*********************************************************************************/
 /*===============================================================================*/
 
-import { logger } from '../../../config/common-config';
 import { COCOService } from '../../../service/coco-service';
-import { CustomApiError, ErrorCodes } from '../../../utils/custom-api-errors';
-import { ReadableNames } from '../../../utils/readable-names';
+import { HttpStatus } from '../../../utils/constants';
 
 /**
  * Executes to provide user access token for non coco users
@@ -35,29 +33,24 @@ export const fetchUserToken = (req, res) => {
 
   // Check if userId is sent
   if (userId === undefined) {
-    logger.error('fetchUserToken: usser id not sent');
-    const error = new CustomApiError(ErrorCodes.MISSING_PARAM, 'userId',
-      ReadableNames.USER);
-    return res.status(error.getHttpStatus()).send(error.getErrorInfo());
+    console.log('fetchUserToken: user id not sent');
+    return res.status(HttpStatus.MISSING_PARAM).send();
   }
 
   // Check if userId is a string
   if (typeof(userId) !== 'string') {
-    logger.error('fetchUserToken: userId is not valid.' + ' userId ' + userId);
-    const error = new CustomApiError(ErrorCodes.INVALID_INPUT, 'userId',
-      ReadableNames.USER);
-    return res.status(error.getHttpStatus()).send(error.getErrorInfo());
+    console.log('fetchUserToken: userId is not valid.' + ' userId ' + userId);
+    return res.status(HttpStatus.INVALID_INPUT).send();
   }
 
   return COCOService.getUserAccessTokenById(userId)
     .then((userToken) => {
-      logger.info('fetchUserToken: fetched coco access token for user' + userId);
+      console.log('fetchUserToken: fetched coco access token for user' + userId);
       return res.send(userToken);
 
     }).catch((err) => {
-      logger.error('fetchUserToken: error occurred while fetching user access token',
+      console.log('fetchUserToken: error occurred while fetching user access token',
         err);
-      const error =  new CustomApiError(ErrorCodes.INTERNAL_SERVER_ERROR);
-      return res.status(error.getHttpStatus()).send(error.getErrorInfo());
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send();
     });
 };

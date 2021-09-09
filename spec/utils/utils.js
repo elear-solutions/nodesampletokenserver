@@ -23,4 +23,4 @@
 
 import { Environment } from '../../config/environment';
 
-export const baseUrl = 'http://localhost:' + Environment.PORT + '/v1.0/coco-api';
+export const baseUrl = 'http://localhost:' + Environment.PORT + '/v1.0/token';

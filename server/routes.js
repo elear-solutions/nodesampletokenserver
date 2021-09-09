@@ -20,16 +20,15 @@
 /*********************************************************************************/
 /*===============================================================================*/
 
-import { logger } from './config/common-config';
-import { HttpStatus } from './utils/custom-api-errors';
-import { cocoAPIRouter } from './api/v1.0/coco-api';
+import { HttpStatus } from './utils/constants';
+import { tokenRouter } from './api/v1.0/token';
 
 // Routes function to load apis on specific routes
 export default (app) => {
-  app.use('/v1.0/coco-api', cocoAPIRouter);
+  app.use('/v1.0/token', tokenRouter);
 
   app.get('*', (req, res) => {
-    logger.error('Requested API route does '
+    console.log('Requested API route does '
       + 'not match any available endpoints: ' + req.method, req.url);
     res.status(HttpStatus.NOT_FOUND).send('Page not found');
   });
