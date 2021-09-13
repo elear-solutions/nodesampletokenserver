@@ -30,31 +30,34 @@ import { HttpStatus } from '../utils/constants';
  * @param {String} userId - unique identification Id of coco or other user
  */
 const getUserAccessTokenById = (userId) => {
-  return new Promise((resolve, reject) => {
-    request({
-      method: 'post',
-      url: `${Environment.COCO_API_URL}/oauth/external-user-token`,
-      body: { userId },
-      auth: {
-        bearer: COCOConfig.getCOCOAcessToken()
-      },
-      json: true,
-    }, (err, response) => {
-      if (err || !(response.statusCode === HttpStatus.OK ||
-         response.statusCode === HttpStatus.UNAUTHORIZED)) {
-        console.log('getUserAccessTokenById: Error occurred in coco' +
-           ' server while retrieving user access token ', err);
-        return reject(HttpStatus.INTERNAL_SERVER_ERROR);
-      }
+  return COCOConfig.getCOCOAcessToken()
+    .then((token) => {
+      return new Promise((resolve, reject) => {
+        request({
+          method: 'post',
+          url: `${Environment.COCO_API_URL}/oauth/external-user-token`,
+          body: { userId },
+          headers: {
+            "Authorization": `Bearer ${token}`
+          },
+          json: true,
+        }, (err, response) => {
+          if (err || !(response.statusCode === HttpStatus.OK ||
+             response.statusCode === HttpStatus.UNAUTHORIZED)) {
+            console.log('getUserAccessTokenById: Error occurred in coco' +
+               ' server while retrieving user access token ', err);
+            return reject(HttpStatus.INTERNAL_SERVER_ERROR);
+          }
 
-      if (response.statusCode === HttpStatus.UNAUTHORIZED) {
-        console.log('getUserAccessTokenById: Access token expired fetching'
-          + 'new access token');
-        return resolve(getUserAccessTokenById(userId));
-      }
-      resolve(response.body);
+          if (response.statusCode === HttpStatus.UNAUTHORIZED) {
+            console.log('getUserAccessTokenById: Access token expired fetching'
+              + 'new access token' + err);
+            return resolve(getUserAccessTokenById(userId));
+          }
+          return resolve(response.body);
+        });
+      });
     });
-  });
 };
 
 // contains function for different api requests on coco

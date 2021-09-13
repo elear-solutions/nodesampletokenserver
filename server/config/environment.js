@@ -27,10 +27,10 @@ export const Environment = {
 
   // COCO service info
   // COCO API url
-  "COCO_API_URL": process.env.COCO_API_URL || "https://api.getcoco.buzz",
+  "COCO_API_URL": process.env.COCO_API_URL || "https://api.dev.getcoco.buzz",
   // COCO Service application client id
-  "COCO_CLIENT_ID": process.env.COCO_CLIENT_ID || "7d29ba284d8d367ff499",
+  "COCO_CLIENT_ID": process.env.COCO_CLIENT_ID || "08af26e453f07862ee86",
   // COCO service application secret
   "COCO_CLIENT_SECRET": process.env.COCO_CLIENT_SECRET
-    || "3dd6728b37d8497553c974afea27429369bbadfe",
+    || "1fd2fa2309bc6aaf45a376868f992bd047213bcf",
 };
