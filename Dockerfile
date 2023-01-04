@@ -30,7 +30,7 @@ COPY package-lock.json /usr/src/app/
 # Install all dependency packages to install node module
 RUN apk add --update git openssh &&\
     apk --no-cache add --virtual native-deps \
-    g++ gcc libgcc libstdc++ linux-headers make python && \
+    g++ gcc libgcc libstdc++ linux-headers make python3 && \
     npm ci --only=production && \
     apk del native-deps
 
