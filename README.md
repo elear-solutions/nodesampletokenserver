@@ -1,3 +1,10 @@
+| ENVIRONMENT | CI BUILD | CI SONARQUBE | CD BUILD | CD DEPLOYMENT |
+| --- | --- | --- | --- | --- |
+|<p align="left"> **DEV** </p>|<p align="center"> ![Generic badge](https://eleargithubbadge.s3.ap-south-1.amazonaws.com/sampletokenserver/develop/ci-build.svg) </p>| <p align="center"> ![Generic badge](https://eleargithubbadge.s3.ap-south-1.amazonaws.com/sampletokenserver/develop/ci-sonarqube.svg) </p> |<p align="center"> ![Generic badge](https://eleargithubbadge.s3.ap-south-1.amazonaws.com/sampletokenserver/develop/cd-build.svg) </p>|<p align="center"> ![Generic badge](https://eleargithubbadge.s3.ap-south-1.amazonaws.com/sampletokenserver/develop/cd-deploy.svg) </p>|
+|<p align="left"> **STAGING** </p>|<p align="center"> ![Generic badge](https://eleargithubbadge.s3.ap-south-1.amazonaws.com/sampletokenserver/release/ci-build.svg) </p>|<p align="center"> ![Generic badge](https://eleargithubbadge.s3.ap-south-1.amazonaws.com/sampletokenserver/release/ci-sonarqube.svg) </p>|<p align="center"> ![Generic badge](https://eleargithubbadge.s3.ap-south-1.amazonaws.com/sampletokenserver/release/cd-build.svg) </p>|<p align="center"> ![Generic badge](https://eleargithubbadge.s3.ap-south-1.amazonaws.com/sampletokenserver/release/cd-deploy.svg) </p>| 
+|<p align="left"> **PROD** </p>|<p align="center"> ![Generic badge](https://eleargithubbadge.s3.ap-south-1.amazonaws.com/sampletokenserver/master/ci-build.svg) </p>|<p align="center"> ![Generic badge](https://eleargithubbadge.s3.ap-south-1.amazonaws.com/sampletokenserver/master/ci-sonarqube.svg) </p>|<p align="center"> ![Generic badge](https://eleargithubbadge.s3.ap-south-1.amazonaws.com/sampletokenserver/master/cd-build.svg) </p>|<p align="center"> ![Generic badge](https://eleargithubbadge.s3.ap-south-1.amazonaws.com/sampletokenserver/master/cd-deploy.svg) </p>|
+
+
 # nodesampletokenserver
 
 This is sample service application of COCO to allow non coco users to access the COCONet functionality
