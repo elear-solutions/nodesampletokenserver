@@ -1,7 +1,7 @@
 {
   "name": "nodesampletokenserver",
   "version": "1.0.0",
-  "description": "This is sample service application of COCO to allow non coco users to access the COCONet functionality.",
+  "description": "This is sample service application of COCO to allow non coco users to access the COCONet functionality",
   "main": "server.js",
   "private": "true",
   "scripts": {
